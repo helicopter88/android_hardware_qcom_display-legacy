@@ -4,7 +4,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE                  := hwcomposer.$(TARGET_BOARD_PLATFORM)
 LOCAL_MODULE_PATH             := $(TARGET_OUT_SHARED_LIBRARIES)/hw
 LOCAL_MODULE_TAGS             := optional
-LOCAL_C_INCLUDES              := $(common_includes)
+LOCAL_C_INCLUDES              := $(common_includes) $(kernel_includes)
 LOCAL_SHARED_LIBRARIES        := $(common_libs) libEGL liboverlay libgenlock \
                                  libhwcexternal libqdutils libhardware_legacy \
                                  libdl libmemalloc libhwcservice
@@ -22,6 +22,7 @@ LOCAL_SRC_FILES               := hwc.cpp          \
                                  hwc_mdpcomp.cpp  \
                                  hwc_extonly.cpp
 
+LOCAL_CLANG := true
 include $(BUILD_SHARED_LIBRARY)
 
 #libhwcexternal library
@@ -40,6 +41,7 @@ ifeq ($(TARGET_QCOM_HDMI_RESOLUTION_AUTO),true)
     LOCAL_CFLAGS += -DFORCE_AUTO_RESOLUTION
 endif
 
+LOCAL_CLANG := true
 include $(BUILD_SHARED_LIBRARY)
 
 #libhwcservice library
@@ -54,5 +56,5 @@ LOCAL_CFLAGS                  := $(common_flags) -DLOG_TAG=\"hwcservice\"
 LOCAL_ADDITIONAL_DEPENDENCIES := $(common_deps)
 LOCAL_SRC_FILES               := hwc_service.cpp \
                                  ihwc.cpp
-
+LOCAL_CLANG := true
 include $(BUILD_SHARED_LIBRARY)

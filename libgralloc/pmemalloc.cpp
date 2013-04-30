@@ -70,14 +70,14 @@ static int connectPmem(int fd, int master_fd) {
 }
 
 static int mapSubRegion(int fd, int offset, size_t size) {
-    struct pmem_region sub = { offset, size };
+    struct pmem_region sub = { (unsigned long)offset, (unsigned long)size };
     if (ioctl(fd, PMEM_MAP, &sub))
         return -errno;
     return 0;
 }
 
 static int unmapSubRegion(int fd, int offset, size_t size) {
-    struct pmem_region sub = { offset, size };
+    struct pmem_region sub = { (unsigned long)offset, (unsigned long)size };
     if (ioctl(fd, PMEM_UNMAP, &sub))
         return -errno;
     return 0;

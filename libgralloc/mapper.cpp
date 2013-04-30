@@ -311,7 +311,7 @@ int gralloc_perform(struct gralloc_module_t const* module,
     int res = -EINVAL;
     va_list args;
     va_start(args, operation);
-    switch (operation) {
+    switch ((unsigned long)operation) {
         case GRALLOC_MODULE_PERFORM_CREATE_HANDLE_FROM_BUFFER:
             {
                 int fd = va_arg(args, int);
